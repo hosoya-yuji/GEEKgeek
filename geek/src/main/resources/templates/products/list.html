@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>商品一覧</title>
+</head>
+<body>
+<h1>商品一覧</h1>
+<form th:action="@{/admin/products}" method="get">
+	商品名: <input type="text" name="name" th:value="${name}"/>
+	大カテゴリ: 
+	<select name="largeCategoryId">
+		<option value="0">全て</option>
+		<option th:each="category : ${largeCategories}" 
+				th:value="${category.id}" 
+				th:text="${category.name}" 
+				th:selected="${category.id} == ${largeCategoryId}">デバッグ: [[${category.name}]]</option>
+	</select>
+    
+	中カテゴリ: 
+	<select name="mediumCategoryId">
+		<option value="0">全て</option>
+		<option th:each="category : ${mediumCategories}" 
+				th:value="${category.id}" 
+				th:text="${category.name}" 
+				th:selected="${category.id} == ${mediumCategoryId}"></option>
+	</select>
+    
+	小カテゴリ: 
+	<select name="smallCategoryId">
+		<option value="0">全て</option>
+		<option th:each="category : ${smallCategories}" 
+				th:value="${category.id}" 
+				th:text="${category.name}" 
+				th:selected="${category.id} == ${smallCategoryId}"></option>
+	</select>
+	<button type="submit">検索</button>
+</form>
+
+<a th:href="@{/admin/products/new}">新規作成</a>
+<table>
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>商品名</th>
+			<th>メーカー名</th>
+			<th>価格</th>
+			<th>在庫数</th>
+			<th>アクション</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr th:each="product : ${products}">
+			<td th:text="${product.id}">ID</td>
+			<td th:text="${product.productName}">商品名</td>
+			<td th:text="${product.manufacturer.manufacturerName}">メーカー名</td>
+			<td th:text="${product.price}">価格</td>
+			<td th:text="${product.stock}">在庫数</td>
+			<td>
+				<a th:href="@{/admin/products/{id}(id=${product.id})}">詳細</a>
+				<a th:href="@{/admin/products/edit/{id}(id=${product.id})}">編集</a>
+				<a th:href="@{/admin/products/{id}/order(id=${product.id})}">発注</a>
+				<a th:href="@{/admin/products/delete/{id}(id=${product.id})}" onclick="return confirm('本当に削除しますか？');">削除</a>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<div th:if="${page != null}">
+	<a th:href="@{|/admin/products?page=${page.number - 1}&size=${page.size}|}" th:if="${page.hasPrevious()}">前へ</a>
+	<span th:text="${page.number + 1} + ' / ' + ${page.totalPages}">1 / 1</span>
+	<a th:href="@{|/admin/products?page=${page.number + 1}&size=${page.size}|}" th:if="${page.hasNext()}">次へ</a>
+</div>
+<a th:href="@{/admin/dashboard}">Back</a>
+</body>
+
+</html>

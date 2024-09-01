@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Medium Category Details</title>
+</head>
+<body>
+<h1>Medium Category Details</h1>
+<p>ID: <span th:text="${mediumCategory.id}"></span></p>
+<p>Name: <span th:text="${mediumCategory.name}"></span></p>
+
+<h2>Small Categories</h2>
+
+<p>Number of Small Categories: <span th:text="${#lists.size(smallCategories)}"></span></p>
+
+<table>
+	<tr>
+		<th>ID</th>
+		<th>Name</th>
+		<th>Actions</th>
+	</tr>
+	<tr th:each="smallCategory : ${smallCategories}">
+		<td th:text="${smallCategory.id}"></td>
+		<td th:text="${smallCategory.name}"></td>
+		<td><a th:href="@{/admin/smallCategory/view/{id}(id=${smallCategory.id})}">View</a></td>
+	</tr>
+</table>
+
+<a th:href="${backUrl}">大カテゴリーページに戻る</a>
+
+
+</body>
+</html>

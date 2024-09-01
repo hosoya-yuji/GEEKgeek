@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>店舗管理</title>
+	<link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+	<h1>店舗一覧</h1>
+	<a th:href="@{/admin/stores/new}">新規店舗作成</a>
+	<table>
+		<tr>
+			<th>ID</th>
+			<th>店舗名</th>
+			<th>住所</th>
+			<th>アクション</th>
+		</tr>
+		<tr th:each="store : ${stores}">
+			<td th:text="${store.id}">1</td>
+			<td th:text="${store.storeName}">店舗名</td>
+			<td th:text="${store.address}">住所</td>
+			<td>
+				<a th:href="@{'/admin/stores/edit/' + ${store.id}}">編集</a>
+				<a th:href="@{'/admin/stores/delete/' + ${store.id}}">削除</a>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>

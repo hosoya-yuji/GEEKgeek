@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>商品詳細</title>
+</head>
+<body>
+<h1>商品詳細</h1>
+<p>商品名: <span th:text="${product.productName}"></span></p>
+<p>価格: <span th:text="${product.price}"></span></p>
+<p>在庫数: <span th:text="${product.stock}"></span></p>
+</body>
+</html>

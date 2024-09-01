@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Admin Details</title>
+	<link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+<h1>Admin Details</h1>
+<table>
+	<tr>
+		<th>ID:</th>
+		<td th:text="${admin.id}"></td>
+	</tr>
+	<tr>
+		<th>First Name:</th>
+		<td th:text="${admin.firstName}"></td>
+	</tr>
+	<tr>
+		<th>Last Name:</th>
+		<td th:text="${admin.lastName}"></td>
+	</tr>
+	<tr>
+		<th>Email:</th>
+		<td th:text="${admin.email}"></td>
+	</tr>
+	<tr>
+		<th>Role:</th>
+		<td th:text="${admin.role.roleName}"></td>
+	</tr>
+	<tr>
+		<th>Position:</th>
+		<td th:text="${admin.position.positionName}"></td>
+	</tr>
+</table>
+<a th:href="@{/admin/management}">Back to Admin List</a>
+</body>
+</html>

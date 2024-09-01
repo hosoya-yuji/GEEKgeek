@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Large Category Details</title>
+</head>
+<body>
+<h1>Large Category Details</h1>
+<p>ID: <span th:text="${largeCategory.id}"></span></p>
+<p>Name: <span th:text="${largeCategory.name}"></span></p>
+
+<h2>Medium Categories</h2>
+<table>
+	<tr>
+		<th>ID</th>
+		<th>Name</th>
+		<th>Actions</th>
+	</tr>
+	<tr th:each="mediumCategory : ${mediumCategories}">
+		<td th:text="${mediumCategory.id}"></td>
+		<td th:text="${mediumCategory.name}"></td>
+		<td>
+			<a th:href="@{/admin/mediumCategory/view/{id}(id=${mediumCategory.id})}">View</a>
+		</td>
+	</tr>
+</table>
+<a th:href="@{/admin/largeCategory}">Back to List</a>
+</body>
+</html>
