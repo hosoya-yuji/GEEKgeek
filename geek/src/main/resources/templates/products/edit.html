@@ -1,26 +1,25 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <title>商品編集</title>
+	<title>商品編集</title>
 </head>
+
 <body>
-    <h1>在庫と価格の編集</h1>
+	<h1>在庫と価格の編集</h1>
 
-    <!-- 所属店舗の在庫と価格情報を編集 -->
-    <form th:object="${productStoreDetail}" th:action="@{/admin/products/edit/{id}(id=${product.id})}" method="post">
-        <!-- 商品IDと店舗IDをhiddenフィールドで送信 -->
-        <input type="hidden" th:field="*{id.productId}" />
-        <input type="hidden" th:field="*{id.storeId}" />
+	<form th:object="${productStoreDetail}" th:action="@{/admin/products/edit/{id}(id=${product.id})}" method="post">
 
-        <!-- 価格と在庫数の入力フィールド -->
-        <label>価格: <input type="number" step="0.01" th:field="*{salePrice}" required/></label><br />
-        <label>在庫数: <input type="number" th:field="*{stockQuantity}" required/></label><br />
+		<input type="hidden" th:field="*{id.productId}" />
+		<input type="hidden" th:field="*{id.storeId}" />
 
-        <!-- 更新ボタン -->
-        <button type="submit">更新</button>
-    </form>
+		<label>価格: <input type="number" step="0.01" th:field="*{salePrice}" required /></label><br />
+		<label>在庫数: <input type="number" th:field="*{stockQuantity}" required /></label><br />
 
-    <!-- 戻るボタン -->
-    <a th:href="@{/admin/products}">戻る</a>
+		<button type="submit">更新</button>
+	</form>
+
+	<a th:href="@{/admin/products}">戻る</a>
 </body>
+
 </html>
