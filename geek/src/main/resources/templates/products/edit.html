@@ -1,22 +1,26 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>商品編集</title>
+    <title>商品編集</title>
 </head>
 <body>
-<h1>商品編集</h1>
-<form th:action="@{/admin/products/edit/{id}(id=${product.id})}" th:object="${product}" method="post">
-	<label>商品名: <input type="text" th:field="*{productName}"/></label><br/>
-	<label>メーカー: 
-		<select th:field="*{manufacturer.id}">
-			<option th:each="manufacturer : ${manufacturers}" th:value="${manufacturer.id}" th:text="${manufacturer.manufacturerName}"></option>
-		</select>
-	</label><br/>
-	<label>価格: <input type="text" th:field="*{price}"/></label><br/>
-	<label>在庫数: <input type="text" th:field="*{stock}"/></label><br/>
-	<label>説明: <textarea th:field="*{description}"></textarea></label><br/>
-	<button type="submit">更新</button>
-</form>
-<a th:href="@{/admin/products}">戻る</a>
+    <h1>在庫と価格の編集</h1>
+
+    <!-- 所属店舗の在庫と価格情報を編集 -->
+    <form th:object="${productStoreDetail}" th:action="@{/admin/products/edit/{id}(id=${product.id})}" method="post">
+        <!-- 商品IDと店舗IDをhiddenフィールドで送信 -->
+        <input type="hidden" th:field="*{id.productId}" />
+        <input type="hidden" th:field="*{id.storeId}" />
+
+        <!-- 価格と在庫数の入力フィールド -->
+        <label>価格: <input type="number" step="0.01" th:field="*{salePrice}" required/></label><br />
+        <label>在庫数: <input type="number" th:field="*{stockQuantity}" required/></label><br />
+
+        <!-- 更新ボタン -->
+        <button type="submit">更新</button>
+    </form>
+
+    <!-- 戻るボタン -->
+    <a th:href="@{/admin/products}">戻る</a>
 </body>
 </html>

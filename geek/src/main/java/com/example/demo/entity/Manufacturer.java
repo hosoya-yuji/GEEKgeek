@@ -20,7 +20,7 @@ public class Manufacturer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "manufacturer_id")
-	private Long manufacturerId;
+	private Long id;
 
 	@Column(name = "manufacturer_name", length = 255)
 	private String manufacturerName;

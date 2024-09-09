@@ -31,7 +31,6 @@ public class ProductService {
 		this.storeRepository = storeRepository;
 	}
 
-
 	public List<Product> getAllProducts() {
 		return productRepository.findAll();
 	}
@@ -42,9 +41,14 @@ public class ProductService {
 				name, largeCategoryId, mediumCategoryId, smallCategoryId, pageable);
 	}
 
+	@Transactional(readOnly = true)
 	public Product findById(Long id) {
-		return productRepository.findById(id)
+		Product product = productRepository.findById(id)
 				.orElseThrow(() -> new ProductNotFoundException("Product with ID " + id + " not found"));
+
+		product.getProductStoreDetails().size();
+
+		return product;
 	}
 
 	public void saveProduct(Product product) {
@@ -63,7 +67,10 @@ public class ProductService {
 		ProductStoreDetail detail = productStoreDetailsRepository.findByProductAndStore(product, store)
 				.orElseThrow(() -> new RuntimeException(
 						"Store details not found for product ID " + productId + " and store ID " + storeId));
-		detail.setStock(detail.getStock() + quantity);
+
+		detail.setStockQuantity(detail.getStockQuantity() + quantity);
+
 		productStoreDetailsRepository.save(detail);
 	}
+
 }

@@ -1,12 +1,23 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
 	<title>商品詳細</title>
 </head>
+
 <body>
-<h1>商品詳細</h1>
-<p>商品名: <span th:text="${product.productName}"></span></p>
-<p>価格: <span th:text="${product.price}"></span></p>
-<p>在庫数: <span th:text="${product.stock}"></span></p>
+	<h1>商品詳細</h1>
+	<p>商品名: <span th:text="${product.productName}"></span></p>
+
+	<p th:if="${storeDetail != null}">
+		価格: <span th:text="${storeDetail.salePrice}"></span><br>
+		在庫数: <span th:text="${storeDetail.stockQuantity}"></span>
+	</p>
+
+	<p th:if="${storeDetail == null}">
+		この商品に関連する価格と在庫情報はありません。
+	</p>
+
 </body>
+
 </html>
