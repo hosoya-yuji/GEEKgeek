@@ -41,13 +41,13 @@ public class StoreController {
 		return "store/new";
 	}
 
-	@PostMapping
+	@PostMapping("/new")
 	public String saveStore(@Valid @ModelAttribute("store") Store store, BindingResult result, Model model) {
-		if (result.hasErrors()) {
-			return "store/new";
-		}
-		storeService.saveStore(store);
-		return "redirect:/admin/stores";
+	    if (result.hasErrors()) {
+	        return "store/new";
+	    }
+	    storeService.saveStore(store);
+	    return "redirect:/admin/stores";
 	}
 
 	@GetMapping("/edit/{id}")
@@ -79,7 +79,7 @@ public class StoreController {
 
 	@GetMapping("/delete/{id}")
 	public String deleteStore(@PathVariable("id") Long id) {
-		storeService.deleteStore(id);
-		return "redirect:/admin/stores";
+	    storeService.deleteStore(id);
+	    return "redirect:/admin/stores";
 	}
 }

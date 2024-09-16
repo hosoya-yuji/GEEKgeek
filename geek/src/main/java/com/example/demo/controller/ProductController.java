@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.beans.PropertyEditorSupport;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -109,16 +110,35 @@ public class ProductController {
 
 	@GetMapping("/new")
 	public String createProductForm(Model model) {
-		model.addAttribute("product", new Product());
-		model.addAttribute("manufacturers", manufacturerService.getAllManufacturers());
-		return "products/new";
+	    model.addAttribute("productForm", new Product()); 
+	    model.addAttribute("manufacturers", manufacturerService.getAllManufacturers());  // メーカーリストを追加
+	    return "products/new";
 	}
 
-	@PostMapping
-	public String saveProduct(@ModelAttribute Product product) {
-		productService.saveProduct(product);
-		return "redirect:/admin/products";
+
+	@PostMapping("/new")
+	public String saveProduct(@ModelAttribute("productForm") Product productForm, 
+	                          @RequestParam BigDecimal salePrice, 
+	                          @RequestParam int stockQuantity,
+	                          @AuthenticationPrincipal UserDetails userDetails) {
+	    // 1. Productの保存
+	    productService.saveProduct(productForm);
+
+	    // 2. ProductStoreDetailの保存
+	    Admin admin = adminService.findByEmail(userDetails.getUsername());
+	    Long storeId = admin.getStore().getId();
+
+	    ProductStoreDetail productStoreDetail = new ProductStoreDetail();
+	    productStoreDetail.setProduct(productForm);
+	    productStoreDetail.setSalePrice(salePrice);
+	    productStoreDetail.setStockQuantity(stockQuantity);
+	    productStoreDetail.setId(new ProductStoreDetail.ProductStoreDetailId(productForm.getId(), storeId));
+
+	    productStoreDetailService.save(productStoreDetail);
+
+	    return "redirect:/admin/products";
 	}
+
 
 	@GetMapping("/{id}")
 	public String viewProduct(@PathVariable Long id, @AuthenticationPrincipal UserDetails userDetails, Model model) {
@@ -166,7 +186,6 @@ public class ProductController {
 			@ModelAttribute("productStoreDetail") ProductStoreDetail productStoreDetail,
 			BindingResult storeDetailResult,
 			@AuthenticationPrincipal UserDetails userDetails) {
-
 
 		if (storeDetailResult.hasErrors()) {
 			System.out.println("StoreDetail binding errors: " + storeDetailResult.getAllErrors());

@@ -14,12 +14,12 @@
 		<th>Actions</th>
 	</tr>
 	<tr th:each="manufacturer : ${manufacturers}">
-		<td th:text="${manufacturer.manufacturerId}"></td>
+		<td th:text="${manufacturer.id}"></td>
 		<td th:text="${manufacturer.manufacturerName}"></td>
 		<td>
-			<a th:href="@{/admin/manufacturer/view/{id}(id=${manufacturer.manufacturerId})}">View</a> |
-			<a th:href="@{/admin/manufacturer/edit/{id}(id=${manufacturer.manufacturerId})}">Edit</a> |
-			<a th:href="@{/admin/manufacturer/delete/{id}(id=${manufacturer.manufacturerId})}">Delete</a>
+			<a th:href="@{/admin/manufacturer/view/{id}(id=${manufacturer.id})}">View</a>
+			<a th:href="@{/admin/manufacturer/edit/{id}(id=${manufacturer.id})}">Edit</a>
+			<a th:href="@{/admin/manufacturer/delete/{id}(id=${manufacturer.id})}">Delete</a>
 		</td>
 	</tr>
 </table>

@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.entity.Admin;
 import com.example.demo.service.AdminService;
+import com.example.demo.service.PositionService;
+import com.example.demo.service.RoleService;
 import com.example.demo.service.StoreService;
 
 @Controller
@@ -21,11 +23,16 @@ public class AdminManagementController {
 
 	private final AdminService adminService;
 	private final StoreService storeService;
+	private final RoleService roleService;
+	private final PositionService positionService;
 
 	@Autowired
-	public AdminManagementController(AdminService adminService, StoreService storeService) {
+	public AdminManagementController(AdminService adminService, StoreService storeService,
+			RoleService roleService, PositionService positionService) {
 		this.adminService = adminService;
 		this.storeService = storeService;
+		this.roleService = roleService;
+		this.positionService = positionService;
 	}
 
 	@GetMapping
@@ -38,11 +45,6 @@ public class AdminManagementController {
 	@GetMapping("/view/{id}")
 	public String viewAdmin(@PathVariable Long id, Model model) {
 		Admin admin = adminService.findById(id);
-		if (admin == null) {
-			System.out.println("Admin with ID " + id + " not found.");
-			throw new IllegalArgumentException("Invalid admin Id:" + id);
-		}
-		System.out.println("Admin with ID " + id + " found.");
 		model.addAttribute("admin", admin);
 		return "management/view";
 	}
@@ -51,6 +53,8 @@ public class AdminManagementController {
 	public String createAdminForm(Model model) {
 		model.addAttribute("admin", new Admin());
 		model.addAttribute("stores", storeService.getAllStores());
+		model.addAttribute("roles", roleService.findAll());
+		model.addAttribute("positions", positionService.findAll());
 		return "management/new";
 	}
 
@@ -63,8 +67,12 @@ public class AdminManagementController {
 	@GetMapping("/edit-admin/{id}")
 	public String editAdminForm(@PathVariable Long id, Model model) {
 		Admin admin = adminService.findById(id);
+
 		model.addAttribute("admin", admin);
 		model.addAttribute("stores", storeService.getAllStores());
+		model.addAttribute("roles", roleService.findAll());
+		model.addAttribute("positions", positionService.findAll());
+
 		return "management/edit";
 	}
 
@@ -73,18 +81,21 @@ public class AdminManagementController {
 		try {
 			Admin existingAdmin = adminService.findById(id);
 			if (existingAdmin != null) {
-				// 必要なフィールドを更新
 				existingAdmin.setFirstName(admin.getFirstName());
 				existingAdmin.setLastName(admin.getLastName());
 				existingAdmin.setEmail(admin.getEmail());
-				// 店舗の紐付けと保存をサービス層で行う
 				existingAdmin.setStore(admin.getStore());
+
+				existingAdmin.setRole(admin.getRole());
+				existingAdmin.setPosition(admin.getPosition());
 
 				adminService.saveAdmin(existingAdmin);
 			}
 		} catch (Exception e) {
 			model.addAttribute("error", "更新中にエラーが発生しました");
 			model.addAttribute("stores", storeService.getAllStores());
+			model.addAttribute("roles", roleService.findAll());
+			model.addAttribute("positions", positionService.findAll());
 			return "management/edit";
 		}
 		return "redirect:/admin/management";

@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
 	<title>View Manufacturer</title>
 </head>
+
 <body>
-<h1>Manufacturer Details</h1>
-<p>ID: <span th:text="${manufacturer.manufacturerId}"></span></p>
-<p>Name: <span th:text="${manufacturer.manufacturerName}"></span></p>
-<a th:href="@{/admin/manufacturer}">Back to List</a>
+	<h1>Manufacturer Details</h1>
+	<p>ID: <span th:text="${manufacturer.id}"></span></p>
+	<p>Name: <span th:text="${manufacturer.manufacturerName}"></span></p>
+	<a th:href="@{/admin/manufacturer}">Back to List</a>
 </body>
+
 </html>

@@ -33,7 +33,6 @@ public class Position {
 	@Column(nullable = false)
 	private LocalDateTime updatedAt;
 
-	// コンストラクタ
 	public Position(String positionName) {
 		this.positionName = positionName;
 	}

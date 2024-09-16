@@ -8,7 +8,7 @@
 	<h1>新規店舗作成</h1>
 	<form th:action="@{/admin/stores}" th:object="${store}" method="post">
 		<label for="store_name">店舗名:</label>
-		<input type="text" id="store_name" th:field="*{store_name}" required><br>
+		<input type="text" id="store_name" th:field="*{storeName}" required><br>
 
 		<label for="address">住所:</label>
 		<input type="text" id="address" th:field="*{address}" required><br>
