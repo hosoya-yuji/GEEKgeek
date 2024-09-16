@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Admin Management</title>
+	<link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+<h1>Admin List</h1>
+<a th:href="@{/admin/management/new}">Add New Admin</a>
+<table>
+	<tr>
+		<th>ID</th>
+		<th>First Name</th>
+		<th>Last Name</th>
+		<th>Email</th>
+		<th>Store</th>
+		<th>Actions</th>
+	</tr>
+	<tr th:each="admin : ${admins}">
+		<td th:text="${admin.id}"></td>
+		<td th:text="${admin.firstName}"></td>
+		<td th:text="${admin.lastName}"></td>
+		<td th:text="${admin.email}"></td>
+		<td th:text="${admin.store != null ? admin.store.storeName : 'No Store Assigned'}"></td>
+		<td>
+			<a th:href="@{/admin/management/view/{id}(id=${admin.id})}">View</a>
+			<a th:href="@{/admin/management/edit/{id}(id=${admin.id})}">Edit</a>
+			<a th:href="@{/admin/management/delete/{id}(id=${admin.id})}">Delete</a>
+		</td>
+	</tr>
+</table>
+<a th:href="@{/admin/dashboard}">Back</a>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Order Form</title>
+</head>
+<body>
+	<h1>Order Form</h1>
+	<form th:action="@{/admin/products/order}" method="post">
+		<input type="hidden" name="productId" th:value="${product.id}" />
+
+
+		<input type="hidden" name="storeId" th:value="${store.id}" />
+
+		<p>Product: <span th:text="${product.productName}"></span></p>
+		<p>Store: <span th:text="${store.storeName}"></span></p>
+
+		<label for="orderQuantity">Order Quantity:</label>
+		<input type="number" id="orderQuantity" name="orderQuantity" min="1" required>
+		<br>
+		<button type="submit">Order</button>
+	</form>
+</body>
+</html>

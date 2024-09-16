@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Manufacturer List</title>
+</head>
+<body>
+<h1>Manufacturer List</h1>
+<a th:href="@{/admin/manufacturer/new}">Add New Manufacturer</a>
+<table>
+	<tr>
+		<th>ID</th>
+		<th>Name</th>
+		<th>Address</th>
+		<th>Actions</th>
+	</tr>
+	<tr th:each="manufacturer : ${manufacturers}">
+		<td th:text="${manufacturer.id}"></td>
+		<td th:text="${manufacturer.manufacturerName}"></td>
+		<td>
+			<a th:href="@{/admin/manufacturer/view/{id}(id=${manufacturer.id})}">View</a>
+			<a th:href="@{/admin/manufacturer/edit/{id}(id=${manufacturer.id})}">Edit</a>
+			<a th:href="@{/admin/manufacturer/delete/{id}(id=${manufacturer.id})}">Delete</a>
+		</td>
+	</tr>
+</table>
+<a th:href="@{/admin/dashboard}">Back</a>
+</body>
+</html>

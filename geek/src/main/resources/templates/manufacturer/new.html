@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>New Manufacturer</title>
+</head>
+<body>
+<h1>New Manufacturer</h1>
+<form th:action="@{/admin/manufacturer/new}" th:object="${manufacturer}" method="post">
+	<label>Name: <input type="text" th:field="*{manufacturerName}"/></label><br/>
+	<button type="submit">Save</button>
+</form>
+<a th:href="@{/admin/manufacturer}">Back to List</a>
+</body>
+</html>

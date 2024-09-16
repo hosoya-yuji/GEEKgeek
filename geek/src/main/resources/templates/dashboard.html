@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Admin Dashboard</title>
+	<link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+	<h1>Admin Dashboard</h1>
+
+	<p>Welcome, <span th:text="${email}">[Email]</span>!</p>
+
+	<ul>
+		<li><a th:href="@{/admin/stores}">店舗管理</a></li>
+		<li><a th:href="@{/admin/profile}">管理者プロフィール詳細</a></li>
+		<li><a th:href="@{/admin/management}">管理者管理</a></li>
+		<li><a th:href="@{/admin/products}">商品管理</a></li>
+		<li><a th:href="@{/admin/orders}">商品発注履歴管理</a></li>
+		<li><a th:href="@{/admin/manufacturer}">メーカー管理</a></li>
+		<li><a th:href="@{/admin/largeCategory}">カテゴリー管理</a></li>
+	</ul>
+
+	<form th:action="@{/logout}" method="post">
+		<button type="submit">Logout</button>
+	</form>
+</body>
+</html>

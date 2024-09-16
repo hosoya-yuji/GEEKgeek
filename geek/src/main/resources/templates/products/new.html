@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>商品新規作成</title>
+</head>
+
+<body>
+	<h1>商品新規作成</h1>
+	<form th:action="@{/admin/products/new}" th:object="${productForm}" method="post">
+		<label>商品名: <input type="text" th:field="*{productName}" /></label><br />
+		<label>価格: <input type="text" name="salePrice" /></label><br />
+		<label>在庫数: <input type="text" name="stockQuantity" /></label><br />
+		<label>メーカー:
+			<select th:field="*{manufacturer.id}">
+				<option th:each="manufacturer : ${manufacturers}" th:value="${manufacturer.id}"
+					th:text="${manufacturer.manufacturerName}"></option>
+			</select>
+		</label><br />
+
+		<button type="submit">保存</button>
+	</form>
+	<a th:href="@{/admin/products}">戻る</a>
+</body>
+
+</html>

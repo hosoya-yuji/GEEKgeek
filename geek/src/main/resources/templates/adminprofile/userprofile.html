@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>User Profile</title>
+	<link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+	<h1>User Profile</h1>
+	<table>
+		<tr>
+			<th>First Name:</th>
+			<td th:text="${admin.firstName}"></td>
+		</tr>
+		<tr>
+			<th>Last Name:</th>
+			<td th:text="${admin.lastName}"></td>
+		</tr>
+		<tr>
+			<th>Email:</th>
+			<td th:text="${admin.email}"></td>
+		</tr>
+		<tr>
+			<th>Role:</th>
+			<td th:text="${admin.role != null ? admin.role.roleName : '未設定'}"></td>
+		</tr>
+		<tr>
+			<th>Position:</th>
+			<td th:text="${admin.position != null ? admin.position.positionName : '未設定'}"></td>
+		</tr>
+	</table>
+	<a th:href="@{/admin/profile/edit}">Edit Profile</a>
+</body>
+<a th:href="@{/admin/dashboard}">Back</a>
+</html>
